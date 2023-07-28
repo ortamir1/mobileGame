@@ -48,7 +48,6 @@ public abstract class swipeDetection : MonoBehaviour
         float timeDifference = _endTime - _startTime;
         if (distance >= _minimumDistance && timeDifference <= _maximumTime)
         {
-            Debug.Log("hey");
             SwipeBehaviour(CalculateDirection(_endPosition, _startPosition), _startPosition, CalculatePower(distance, timeDifference));
         }
     }

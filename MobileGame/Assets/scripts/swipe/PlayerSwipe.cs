@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlayerSwipe: swipeDetection
 {
     
+    [SerializeField] private float _movementModifier = 5f;
+        
+    [SerializeField] private float _timeModifier = 10f;
+    
     [SerializeField] private float _minimumDistanceFromPlayer = 3f;
     
     [SerializeField] private Rigidbody2D _playerRigidBody;
@@ -15,14 +19,13 @@ public class PlayerSwipe: swipeDetection
     {
         if (IsNearPlayer(startPosition))
         {
-            Debug.Log(direction);
             _playerRigidBody.AddForce(-direction * power, ForceMode2D.Force);
         }
     }
 
     protected override float CalculatePower(float distance, float time)
     {
-        return _pullModifier * math.sqrt(math.max(time, 1) * math.max(distance, 1));
+        return _pullModifier * math.sqrt(math.max(time* _timeModifier, 1) * math.max(distance * _movementModifier, 1));
     }
 
     private Boolean IsNearPlayer(Vector3 position)
