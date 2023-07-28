@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class swipeDetection : MonoBehaviour
+public abstract class swipeDetection : MonoBehaviour
 {
     [SerializeField] private float _minimumDistance = .2f;
     [SerializeField] private float _maximumTime = 1f;
@@ -44,9 +44,21 @@ public class swipeDetection : MonoBehaviour
 
     private void DetectSwipe()
     {
-        if (Vector3.Distance(_startPosition, _endPosition) >= _minimumDistance && _endTime - _startTime <= _maximumTime)
+        float distance = Vector2.Distance(_startPosition, _endPosition);
+        float timeDifference = _endTime - _startTime;
+        if (distance >= _minimumDistance && timeDifference <= _maximumTime)
         {
-            Debug.DrawLine(_startPosition,_endPosition,Color.red, 5f);
+            Debug.Log("hey");
+            SwipeBehaviour(CalculateDirection(_endPosition, _startPosition), _startPosition, CalculatePower(distance, timeDifference));
         }
     }
+
+    public abstract void SwipeBehaviour(Vector2 direction, Vector2 startPosition, float power);
+
+    protected Vector2 CalculateDirection(Vector2 A, Vector2 B)
+    {
+        return (A - B).normalized;
+    }
+
+    protected abstract float CalculatePower(float distance, float time);
 }
