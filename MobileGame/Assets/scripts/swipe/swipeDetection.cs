@@ -4,7 +4,6 @@ public abstract class swipeDetection : MonoBehaviour
 {
     [SerializeField] private float _minimumDistance = .2f;
     [SerializeField] private float _maximumTime = 1f;
-
     
     private inputManager _inputManager;
     private Vector2 _startPosition;
